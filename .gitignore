@@ -1,2 +1,3 @@
 env/*
-vncore/*
+vncore/models/*
+vncore/src/*
