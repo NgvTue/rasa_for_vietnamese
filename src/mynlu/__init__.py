@@ -1,0 +1,1 @@
+from .join_bert import FastTextFeaturizer
