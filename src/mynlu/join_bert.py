@@ -2,7 +2,7 @@ import os
 import typing
 from typing import Any, Optional, Text, Dict, List, Type
 
-
+import tqdm
 import numpy as np
 from rasa.nlu.components import Component
 from rasa.nlu.config import RasaNLUModelConfig
@@ -32,8 +32,6 @@ def load_model(path=None):
     phobert = AutoModel.from_pretrained(path)
     # For transformers v4.x+: 
     tokenizer = AutoTokenizer.from_pretrained(path, use_fast=False)
-    with open("ok2.txt","w+") as f:
-        f.write("okkkk")
     return phobert, tokenizer
 
 class FastTextFeaturizer(DenseFeaturizer):
@@ -66,7 +64,7 @@ class FastTextFeaturizer(DenseFeaturizer):
         config: Optional[RasaNLUModelConfig] = None,
         **kwargs: Any,
     ) -> None:
-        for example in training_data.training_examples:
+        for example in tqdm.tqdm(training_data.training_examples):
             for attribute in (DENSE_FEATURIZABLE_ATTRIBUTES):
                 self.gen_feature(example, attribute)
 

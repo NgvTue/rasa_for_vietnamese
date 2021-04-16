@@ -1,3 +1,4 @@
 env/*
 vncore/models/*
 vncore/src/*
+main.py

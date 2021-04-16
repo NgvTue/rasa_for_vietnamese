@@ -19,8 +19,9 @@ import time
 end_t = time.time()
 print("load done ", end_t-st_t  )
 st_t = time.time()
-text = "tôi đi học hôm nay nhé minflow "
+text = "tôi đi học hôm nay nhé minflow 10 năm qua, Quảng Ninh và Đà Nẵng gần như thay nhau chiếm Chỉ số năng lực cạnh tranh cấp tỉnh là một trong những chỉ báo đánh giá khả năng xây dựng môi trường kinh doanh"
 tokens = text.split()
+print(len(tokens))
 cache_word = []
 len_word = []
 unk_token = tokenizer.unk_token

@@ -1,34 +1,111 @@
-version: "2.0"
-
-intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
+version: '2.0'
+config:
+  store_entities_as_slots: true
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+intents:
+- concept:
+    use_entities: true
+- nlu_fallback:
+    use_entities: true
+- greet:
+    use_entities: true
+- reason:
+    use_entities: true
+- treatment:
+    use_entities: true
+- prevent:
+    use_entities: true
+- symptom:
+    use_entities: true
+- reversed_intent:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- thankyou:
+    use_entities: true
+- praise:
+    use_entities: true
+- decry:
+    use_entities: true
+- ask_ability:
+    use_entities: true
+entities:
+- thalassemia_syn
+- ung_thư_trực_tràng_syn
+- ung_thư_gan_syn
+slots:
+  sick_entity:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  type_slot:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+responses:
+  utter_greet:
+  - text: |-
+      Chào bạn ^^. 
+      Mình là chatbot được thiết kế để hỗ trợ về 3 loại bệnh ung thư trực tràng, ung thư gan và thanatsimia
+  utter_goodbye:
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: Hẹn gặp lại bạn nha ^^
+  utter_happy:
+  - text: Hì hì, bạn khen quá lời rồi
+  utter_sorry:
+  - text: Xin lôĩ nha vì mình chưa đủ thông minh để hiểu được các bạn :(((
+  utter_noworries:
+  - text: Mình luôn sẵn lòng giúp đỡ bất cứ khi nào các bạn cần ^^
+  utter_show_ability:
+  - text: Mình là chatbot được thiết kế để hỗ trợ về 3 loại bệnh ung thư trực tràng, ung thư gan và thanatsimia
+  utter_fallback:
+  - text: Hic, mình xin lỗi, mình chưa hiểu ý bạn lắm. Bạn có thể nói lại được không???
+  utter_thalassemia_concept:
+  - text: utter_thalassemia_concept
+  utter_thalassemia_symptom:
+  - text: utter_thalassemia_symptom
+  utter_thalassemia_reason:
+  - text: utter_thalassemia_reason
+  utter_thalassemia_epidemiology:
+  - text: utter_thalassemia_epidemiology
+  utter_ung_thư_gan_concept:
+  - text: utter_ung_thư_gan_concept
+  utter_ung_thư_gan_symptom:
+  - text: utter_ung_thư_gan_symptom
+  utter_ung_thư_gan_reason:
+  - text: utter_ung_thư_gan_reason
+  utter_ung_thư_gan_epidemiology:
+  - text: utter_ung_thư_gan_epidemiology
+  utter_ung_thư_trực_tràng_concept:
+  - text: utter_ung_thư_trực_tràng_concept
+  utter_ung_thư_trực_tràng_symptom:
+  - text: utter_ung_thư_trực_tràng_symptom
+  utter_ung_thư_trực_tràng_reason:
+  - text: utter_ung_thư_trực_tràng_reason
+  utter_ung_thư_trực_tràng_epidemiology:
+  - text: utter_ung_thư_trực_tràng_epidemiology
+actions:
+- action_concept
+- action_question_sick
+- action_reason
+- action_symptom
+- action_prevent
+- action_treatment
+- utter_fallback
+- utter_goodbye
+- utter_greet
+- utter_happy
+- utter_noworries
+- utter_show_ability
+- utter_sorry
+- utter_thalassemia_concept
+- utter_thalassemia_epidemiology
+- utter_thalassemia_reason
+- utter_thalassemia_symptom
+- action_reversed
+forms: {}
+e2e_actions: []

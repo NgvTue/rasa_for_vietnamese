@@ -1,30 +1,166 @@
 version: "2.0"
 
+
+
 stories:
 
 - story: happy path
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+
 
 - story: sad path 1
   steps:
-  - intent: greet
+  - intent: goodbye
   - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+
 
 - story: sad path 2
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - intent: thankyou
+  - action: utter_noworries
+
+- story: ask ability
+  steps:
+  - intent: ask_ability
+  - action: utter_show_ability
+
+- story: praise
+  steps:
+  - intent: praise
+  - action: utter_happy
+
+- story: decry
+  steps:
+  - intent: decry
+  - action: utter_sorry
+
+# - story: concept_story_2
+#   steps:
+#   - intent: concept
+#     entities:
+#       - sick_entity: thalassemia_syn
+#   - slot_was_set: 
+#     - sick_entity: thalassemia_syn
+#   - action: action_concept 
+
+
+
+- story: concept_story1
+  steps:
+  - intent: concept
+  - action: action_question_sick
+  - action: action_concept
+
+
+# - story: reason_story_1
+#   steps:
+#   - intent: reason
+#     entities:
+#       - sick_entity: ung_thư_gan_syn
+#   - slot_was_set: 
+#     - sick_entity: ung_thư_gan_syn
+#   - action: action_reason 
+
+- story: reason_story_2
+  steps:
+  - intent: reason
+  - action: action_question_sick
+  - action: action_reason
+
+# - story: symptom_story_1
+#   steps:
+#   - intent: symptom
+#     entities:
+#       - sick_entity: ung_thư_trực_tràng_syn
+#   - slot_was_set: 
+#     - sick_entity: ung_thư_trực_tràng_syn
+#   - action: action_symptom 
+
+- story: symptom_story_2
+  steps:
+  - intent: symptom
+  - action: action_question_sick
+  - action: action_symptom
+
+
+
+- story: prevent_story_2
+  steps:
+  - intent: prevent
+  - action: action_question_sick
+  - action: action_prevent
+
+- story: treatment_story_2
+  steps:
+  - intent: treatment
+  - action: action_question_sick
+  - action: action_treatment
+
+- story: reversed_story_1
+  steps:
+  - intent: reversed_intent
+  - action: action_reversed
+
+
+
+# concept --------------------------------------------------------------------------------------------- ####
+# - story: thalassemia_concept_story1
+#   steps:
+#   - intent: concept
+#     entities:
+#       - sick_entity: thalassemia_syn
+#   - slot_was_set: 
+#     - sick_entity: thalassemia_syn
+#   - action: utter_thalassemia_concept
+
+
+# - story: thalassemia_concept_story2
+#   steps:
+#   - intent: concept
+#   - action: action_question_sick
+#   - slot_was_set:
+#     - sick_entity: thalassemia_syn
+#   - action: utter_thalassemia_concept
+
+
+# - story: ung_thu_gan_concept_story1
+#   steps:
+#   - intent: concept
+#     entities:
+#       - sick_entity: ung_thư_gan_syn
+#   - slot_was_set: 
+#     - sick_entity: ung_thư_gan_syn
+#   - action: utter_ung_thư_gan_concept
+
+
+# - story: ung_thư_gan_concept_story2
+#   steps:
+#   - intent: concept
+#   - action: action_question_sick
+#   - slot_was_set:
+#     - sick_entity: ung_thư_gan_syn
+#   - action: utter_ung_thư_gan_concept
+
+# - story: ung_thư_trực_tràng_concept_story1
+#   steps:
+#   - intent: concept
+#     entities:
+#       - sick_entity: ung_thư_trực_tràng_syn
+#   - slot_was_set: 
+#     - sick_entity: ung_thư_trực_tràng_syn
+#   - action: utter_ung_thư_trực_tràng_concept
+
+
+# - story: ung_thư_trực_tràng_concept_story2
+#   steps:
+#   - intent: concept
+#   - action: action_question_sick
+#   - slot_was_set:
+#     - sick_entity: ung_thư_trực_tràng_syn
+#   - action: utter_ung_thư_trực_tràng_concept
+
+
+
+
