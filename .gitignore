@@ -2,3 +2,6 @@ env/*
 vncore/models/*
 vncore/src/*
 main.py
+src/data/*
+src/models/*
+rasa*

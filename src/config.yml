@@ -8,6 +8,9 @@ pipeline:
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
   - name: WhitespaceTokenizer
   - name: RegexFeaturizer
+  # - name: fasttext_em.GensimFeaturizer
+  #   cache_dir: /home/tuenguyen/demo/src/fasttext_em
+  #   file: cc.vi.300.bin
   - name: 'mynlu.FastTextFeaturizer'
     path : vinai/phobert-base
     device: cpu
