@@ -1,0 +1,1 @@
+{0: 'ask_ability', 1: 'concept', 2: 'decry', 3: 'goodbye', 4: 'greet', 5: 'praise', 6: 'prevent', 7: 'reason', 8: 'symptom', 9: 'thankyou', 10: 'treatment'}

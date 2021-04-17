@@ -82,28 +82,49 @@ from rasa_sdk.events import (
 from rasa_sdk import forms
 from rasa import core
 from rasa.nlu import registry
+
+
+from typing import Text, List, Any, Dict
+
+from rasa_sdk import Tracker, FormValidationAction
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.types import DomainDict
+
+
+class ValidateNameForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_name_form"
+
+
+    def validate_sick_entity(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `last_name` value."""
+
+        # If the name is super short, it might be wrong.
+        print(f"Last name given = {slot_value} length = {len(slot_value)}")
+        
+        return {"sick_entity": slot_value}
+
+
+
 class ActionQuestionSick(forms.FormAction):
     
     def name(self) -> Text:
         return "action_question_sick"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        entities = [i for i in tracker.latest_message.get("entities",[])]
-        slots = tracker.get_slot("sick_entity")
-        text = tracker.latest_message['text']
-        if "restart" in text:
-            Restarted()
-            return []
-        # self.step_loop_ += 1
-        if len(entities) or slots:
-            if slots:slot = slots
-            if len(entities):slot = entities[0]['entity']
-            # dispatcher.utter_message("trả lời câu hỏi  về  concept cho bệnh {}".format( slot))
-            return [SlotSet("sick_entity",slot)]
-        
+    def request_next_slot(
+        self,
+        dispatcher: "CollectingDispatcher",
+        tracker: "Tracker",
+        domain: "DomainDict",
+    ) -> Optional[List[EventType]]:
+        """Request the next slot and utter template if needed,
+        else return None"""
         button  = []
         button.append(
             {"title":"thanatsamia", "payload":"thalassemia"}
@@ -114,9 +135,17 @@ class ActionQuestionSick(forms.FormAction):
         button.append(
              {"title":"ung thư trực tràng", "payload":"ung thư trực tràng"}
         )
-        dispatcher.utter_message("bạn muốn hỏi về bệnh nào nhỉ ?", buttons=button)
-        FollowupAction("action_question_sick")
-        return []
+        for slot in self.required_slots(tracker):
+            if self._should_request_slot(tracker, slot):
+                logger.debug(f"Request next slot '{slot}'")
+                dispatcher.utter_message("bạn muốn hỏi về bệnh nào nhỉ ?", buttons=button, **tracker.slots)
+                # dispatcher.utter_message(template=f"utter_ask_{slot}", **tracker.slots)
+                return [SlotSet(REQUESTED_SLOT, slot)]
+
+        # no more required slots to fill
+        return None
+
+    
 
 
 class ActionConceptHandle(Action):
@@ -143,6 +172,25 @@ class ActionConceptHandle(Action):
 
         
         return []
+
+
+class ActionFlowSick(Action):
+    def name(self):return "action_flow_sick"
+    def run(
+        self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ):
+
+        entities = [i for i in tracker.latest_message.get("entities",[]) if i['entity'] in ['thalassemia_syn','ung_thư_gan_syn','ung_thư_trực_tràng_syn']]
+        slots = tracker.get_slot("sick_entity")
+        if len(entities) or slots:
+            if slots:slot = slots
+            if len(entities):slot = entities[0]['entity']
+
+            return [SlotSet("sick_entity",slot)]
+        return []
+
 
 class ActionReason(Action):
 

@@ -40,12 +40,17 @@ slots:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
-    influence_conversation: true
+    influence_conversation: false
   type_slot:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
-    influence_conversation: true
+    influence_conversation: false
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
 responses:
   utter_greet:
   - text: |-
@@ -107,5 +112,10 @@ actions:
 - utter_thalassemia_reason
 - utter_thalassemia_symptom
 - action_reversed
-forms: {}
+- validate_name_form
+- action_flow_sick
+forms:
+  name_form:
+    sick_entity:
+    - type: from_text
 e2e_actions: []

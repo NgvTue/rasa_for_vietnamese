@@ -8,20 +8,18 @@ pipeline:
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
   - name: WhitespaceTokenizer
   - name: RegexFeaturizer
-  # - name: fasttext_em.GensimFeaturizer
-  #   cache_dir: /home/tuenguyen/demo/src/fasttext_em
-  #   file: cc.vi.300.bin
-  - name: 'mynlu.FastTextFeaturizer'
+  - name: 'mynlu.Bert'
     path : vinai/phobert-base
     device: cpu
   - name: DIETClassifier
     epochs: 25
     constrain_similarities: true
     model_confidence: linear_norm
+    bilou_flag: false
   - name: EntitySynonymMapper
   - name: RegexEntityExtractor
   - name: ResponseSelector
-    epochs: 49
+    epochs: 50
     constrain_similarities: true
  
   - name: FallbackClassifier
